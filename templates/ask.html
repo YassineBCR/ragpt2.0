@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask a Question</title>
+    <style>
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .message.user {
+            text-align: right;
+        }
+        .message.assistant {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Ask a Question</h1>
+        <form id="question-form">
+            <label for="question">Question:</label>
+            <input type="text" id="question" name="question">
+            <input type="submit" value="Ask">
+        </form>
+        <div id="chat-box"></div>
+    </div>
+
+    <script>
+        document.querySelector('#question-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const question = document.querySelector('#question').value;
+            const chatBox = document.querySelector('#chat-box');
+
+            // Ajouter la question de l'utilisateur dans la chatbox
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user';
+            userMessage.innerText = 'You: ' + question;
+            chatBox.appendChild(userMessage);
+
+            const response = await fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            });
+            const result = await response.json();
+
+            // Ajouter la réponse de l'assistant dans la chatbox
+            const assistantMessage = document.createElement('div');
+            assistantMessage.className = 'message assistant';
+            assistantMessage.innerText = 'Assistant: ' + result.answer;
+            chatBox.appendChild(assistantMessage);
+
+            // Effacer le champ de question
+            document.querySelector('#question').value = '';
+        });
+    </script>
+</body>
+</html>

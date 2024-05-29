@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document QA Chatbot</title>
+    <style>
+        .chat-container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .message {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #e6f7ff;
+        }
+
+        .question {
+            text-align: left;
+        }
+
+        .answer {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="message question">
+            <p>{{ question }}</p>
+        </div>
+        <div class="message answer">
+            <p>{{ answer }}</p>
+        </div>
+    </div>
+</body>
+</html>
